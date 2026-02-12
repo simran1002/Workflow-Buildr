@@ -19,9 +19,11 @@ export function useStats() {
 
   const fetchStats = useCallback(async () => {
     try {
-      const res = await fetch("/api/stats");
+      // Disable HTTP caching so we always get a fresh 200 response
+      const res = await fetch("/api/stats", { cache: "no-store" });
+      if (!res.ok) throw new Error("Failed to fetch stats");
       const data = await res.json();
-      if (res.ok) setStats(data);
+      setStats(data);
     } catch {
       setStats(null);
     } finally {
