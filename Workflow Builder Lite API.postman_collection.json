@@ -1,0 +1,683 @@
+{
+	"info": {
+		"_postman_id": "f8c12dd6-3da4-46f2-b681-5e2ff7a974d9",
+		"name": "Workflow Builder Lite API",
+		"description": "API collection for Workflow Builder Lite - AI-native text automation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "48291490",
+		"_collection_link": "https://simran-yadav-c3c8a0dc-3029511.postman.co/workspace/Simran-Yadav's-Workspace~08d0a026-150e-4b82-8b4d-122a8d19ed8e/collection/48291490-f8c12dd6-3da4-46f2-b681-5e2ff7a974d9?action=share&source=collection_link&creator=48291490"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/health",
+						"description": "Check backend, database, and LLM status."
+					},
+					"response": [
+						{
+							"name": "Health Check",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{base_url}}/api/health"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "vary",
+									"value": "RSC, Next-Router-State-Tree, Next-Router-Prefetch"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Feb 2026 07:06:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"backend\": true,\n    \"database\": true,\n    \"llm\": true,\n    \"overall\": true\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Templates",
+			"item": [
+				{
+					"name": "Get Templates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/templates",
+						"description": "Get prebuilt workflow templates."
+					},
+					"response": [
+						{
+							"name": "Get Templates",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{base_url}}/api/templates"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "vary",
+									"value": "RSC, Next-Router-State-Tree, Next-Router-Prefetch"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Feb 2026 07:06:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"clean-summarize\",\n        \"name\": \"Clean & Summarize\",\n        \"description\": \"Clean messy text and produce a concise summary\",\n        \"steps\": [\n            {\n                \"type\": \"clean\",\n                \"promptTemplate\": \"Clean and normalize the following text. Fix typos, remove extra whitespace, and format consistently. Return only the cleaned text, no explanations.\\n\\n{input}\",\n                \"order\": 0\n            },\n            {\n                \"type\": \"summarize\",\n                \"promptTemplate\": \"Summarize the following text concisely in 2-3 sentences. Preserve key information.\\n\\n{input}\",\n                \"order\": 1\n            }\n        ]\n    },\n    {\n        \"id\": \"extract-tag\",\n        \"name\": \"Extract & Tag\",\n        \"description\": \"Extract key entities and assign tags\",\n        \"steps\": [\n            {\n                \"type\": \"extract\",\n                \"promptTemplate\": \"Extract the main entities from this text: people, organizations, dates, locations. List each on a new line in format: TYPE: value\\n\\n{input}\",\n                \"order\": 0\n            },\n            {\n                \"type\": \"tag\",\n                \"promptTemplate\": \"Assign 3-5 relevant tags to categorize this content. Return only comma-separated tags, nothing else.\\n\\n{input}\",\n                \"order\": 1\n            }\n        ]\n    },\n    {\n        \"id\": \"full-pipeline\",\n        \"name\": \"Full Pipeline\",\n        \"description\": \"Clean, summarize, extract, and tag in one workflow\",\n        \"steps\": [\n            {\n                \"type\": \"clean\",\n                \"promptTemplate\": \"Clean and normalize the text. Fix typos, remove extra whitespace. Return only cleaned text.\\n\\n{input}\",\n                \"order\": 0\n            },\n            {\n                \"type\": \"summarize\",\n                \"promptTemplate\": \"Summarize in 2-3 sentences.\\n\\n{input}\",\n                \"order\": 1\n            },\n            {\n                \"type\": \"extract\",\n                \"promptTemplate\": \"Extract key entities (people, orgs, dates). One per line: TYPE: value\\n\\n{input}\",\n                \"order\": 2\n            },\n            {\n                \"type\": \"tag\",\n                \"promptTemplate\": \"Assign 3-5 comma-separated tags.\\n\\n{input}\",\n                \"order\": 3\n            }\n        ]\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Stats",
+			"item": [
+				{
+					"name": "Get Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/stats",
+						"description": "Get workflow count, run count, and last run."
+					},
+					"response": [
+						{
+							"name": "Get Stats",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{base_url}}/api/stats"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "vary",
+									"value": "RSC, Next-Router-State-Tree, Next-Router-Prefetch"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Feb 2026 07:06:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"workflowCount\": 4,\n    \"runCount\": 5,\n    \"lastRun\": {\n        \"id\": \"cmlj31e47000fohgdc220d7d9\",\n        \"workflowName\": \"Intelligent Text Analysis Pipeline\",\n        \"status\": \"success\",\n        \"createdAt\": \"2026-02-12T06:33:20.311Z\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Workflows",
+			"item": [
+				{
+					"name": "List Workflows",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/workflows",
+						"description": "Get all workflows."
+					},
+					"response": [
+						{
+							"name": "List Workflows",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{base_url}}/api/workflows"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "vary",
+									"value": "RSC, Next-Router-State-Tree, Next-Router-Prefetch"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Feb 2026 07:06:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"cmlj2v5fo0005ohgd4nu6dwag\",\n        \"name\": \"Intelligent Text Analysis Pipeline\",\n        \"createdAt\": \"2026-02-12T06:28:29.116Z\",\n        \"steps\": [\n            {\n                \"id\": \"cmlj2v5fo0006ohgd2zuz0uki\",\n                \"workflowId\": \"cmlj2v5fo0005ohgd4nu6dwag\",\n                \"type\": \"clean\",\n                \"promptTemplate\": \"You are a text cleaning assistant.\\n\\nClean and normalize the following text.\\n\\nRules:\\n- fix grammar and spelling\\n- remove filler words\\n- remove repetition\\n- keep meaning unchanged\\n- keep paragraphs readable\\n- do not summarize\\n- do not add new information\\n\\nText:\\n{input}\\n\\nReturn only the cleaned text.\\n\",\n                \"order\": 0,\n                \"createdAt\": \"2026-02-12T06:28:29.116Z\"\n            },\n            {\n                \"id\": \"cmlj2v5fo0007ohgd3e0m5edq\",\n                \"workflowId\": \"cmlj2v5fo0005ohgd4nu6dwag\",\n                \"type\": \"summarize\",\n                \"promptTemplate\": \"You are a professional summarizer.\\n\\nSummarize the following content clearly and concisely.\\n\\nRules:\\n- 4–6 bullet points\\n- capture only key ideas\\n- no extra explanation\\n- simple language\\n- no repetition\\n\\nContent:\\n{input}\\n\\nReturn only bullet points.\\n\",\n                \"order\": 1,\n                \"createdAt\": \"2026-02-12T06:28:29.116Z\"\n            },\n            {\n                \"id\": \"cmlj2v5fo0008ohgdttvhi35d\",\n                \"workflowId\": \"cmlj2v5fo0005ohgd4nu6dwag\",\n                \"type\": \"extract\",\n                \"promptTemplate\": \"Extract structured key information from the text.\\n\\nReturn in this JSON format only:\\n\\n{\\n  \\\"main_topics\\\": [],\\n  \\\"important_entities\\\": [],\\n  \\\"action_items\\\": [],\\n  \\\"risks_or_issues\\\": []\\n}\\n\\nText:\\n{input}\\n\\nReturn valid JSON only. No explanation.\\n\",\n                \"order\": 2,\n                \"createdAt\": \"2026-02-12T06:28:29.116Z\"\n            },\n            {\n                \"id\": \"cmlj2v5fo0009ohgdqenyozyj\",\n                \"workflowId\": \"cmlj2v5fo0005ohgd4nu6dwag\",\n                \"type\": \"tag\",\n                \"promptTemplate\": \"Classify the following text into relevant categories.\\n\\nChoose 3–5 tags only.\\n\\nPossible tags:\\n[\\\"bug\\\", \\\"feature\\\", \\\"meeting\\\", \\\"research\\\", \\\"documentation\\\", \\\"customer_issue\\\", \\\"planning\\\", \\\"general\\\"]\\n\\nText:\\n{input}\\n\\nReturn tags as a comma-separated list only.\\n\",\n                \"order\": 3,\n                \"createdAt\": \"2026-02-12T06:28:29.116Z\"\n            }\n        ]\n    },\n    {\n        \"id\": \"cmlj24uda0000pta2qefgus80\",\n        \"name\": \"Workflow 2.0\",\n        \"createdAt\": \"2026-02-12T06:08:01.726Z\",\n        \"steps\": [\n            {\n                \"id\": \"cmlj24uda0001pta2kc0g9avv\",\n                \"workflowId\": \"cmlj24uda0000pta2qefgus80\",\n                \"type\": \"clean\",\n                \"promptTemplate\": \"Clean and normalize the following text. Fix typos, remove extra whitespace, and format consistently. Return only the cleaned text, no explanations.\",\n                \"order\": 0,\n                \"createdAt\": \"2026-02-12T06:08:01.726Z\"\n            },\n            {\n                \"id\": \"cmlj24uda0002pta26rme9a2g\",\n                \"workflowId\": \"cmlj24uda0000pta2qefgus80\",\n                \"type\": \"summarize\",\n                \"promptTemplate\": \"Summarize the following text concisely in 2-3 sentences. Preserve key information.\",\n                \"order\": 1,\n                \"createdAt\": \"2026-02-12T06:08:01.726Z\"\n            },\n            {\n                \"id\": \"cmlj24uda0003pta24wxmsemx\",\n                \"workflowId\": \"cmlj24uda0000pta2qefgus80\",\n                \"type\": \"extract\",\n                \"promptTemplate\": \"Extract the main entities from this text: people, organizations, dates, locations. List each on a new line in format: TYPE: value\",\n                \"order\": 2,\n                \"createdAt\": \"2026-02-12T06:08:01.726Z\"\n            },\n            {\n                \"id\": \"cmlj24uda0004pta27alzczdr\",\n                \"workflowId\": \"cmlj24uda0000pta2qefgus80\",\n                \"type\": \"tag\",\n                \"promptTemplate\": \"Assign 3-5 relevant tags to categorize this content. Return only comma-separated tags, nothing else.\",\n                \"order\": 3,\n                \"createdAt\": \"2026-02-12T06:08:01.726Z\"\n            }\n        ]\n    },\n    {\n        \"id\": \"cmlj1gh0a00061j9haaw7vbuq\",\n        \"name\": \"E2E\",\n        \"createdAt\": \"2026-02-12T05:49:04.666Z\",\n        \"steps\": [\n            {\n                \"id\": \"cmlj1gh0a00071j9hqe6onopp\",\n                \"workflowId\": \"cmlj1gh0a00061j9haaw7vbuq\",\n                \"type\": \"clean\",\n                \"promptTemplate\": \"Clean: {input}\",\n                \"order\": 0,\n                \"createdAt\": \"2026-02-12T05:49:04.666Z\"\n            },\n            {\n                \"id\": \"cmlj1gh0a00081j9h38479f3q\",\n                \"workflowId\": \"cmlj1gh0a00061j9haaw7vbuq\",\n                \"type\": \"summarize\",\n                \"promptTemplate\": \"Summarize: {input}\",\n                \"order\": 1,\n                \"createdAt\": \"2026-02-12T05:49:04.666Z\"\n            }\n        ]\n    },\n    {\n        \"id\": \"cmlj1g23000001j9hmsqseya1\",\n        \"name\": \"E2E Test Workflow\",\n        \"createdAt\": \"2026-02-12T05:48:45.317Z\",\n        \"steps\": [\n            {\n                \"id\": \"cmlj1g23000011j9hgsu5akzv\",\n                \"workflowId\": \"cmlj1g23000001j9hmsqseya1\",\n                \"type\": \"clean\",\n                \"promptTemplate\": \"Clean this text. Return only cleaned text.\\n\\n{input}\",\n                \"order\": 0,\n                \"createdAt\": \"2026-02-12T05:48:45.317Z\"\n            },\n            {\n                \"id\": \"cmlj1g23000021j9hwjfjou5d\",\n                \"workflowId\": \"cmlj1g23000001j9hmsqseya1\",\n                \"type\": \"summarize\",\n                \"promptTemplate\": \"Summarize in one sentence.\\n\\n{input}\",\n                \"order\": 1,\n                \"createdAt\": \"2026-02-12T05:48:45.317Z\"\n            }\n        ]\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create Workflow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    const json = pm.response.json();",
+									"    pm.collectionVariables.set('workflow_id', json.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"My Workflow\",\n  \"steps\": [\n    {\n      \"type\": \"clean\",\n      \"promptTemplate\": \"Clean and normalize this text. Return only the cleaned text.\\n\\n{input}\",\n      \"order\": 0\n    },\n    {\n      \"type\": \"summarize\",\n      \"promptTemplate\": \"Summarize in 2-3 sentences.\\n\\n{input}\",\n      \"order\": 1\n    }\n  ]\n}"
+						},
+						"url": "{{base_url}}/api/workflows",
+						"description": "Create a new workflow. Requires: name, steps (2-4). Step types: clean, summarize, extract, tag. Use {input} in prompts."
+					},
+					"response": [
+						{
+							"name": "Create Workflow",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"My Workflow\",\n  \"steps\": [\n    {\n      \"type\": \"clean\",\n      \"promptTemplate\": \"Clean and normalize this text. Return only the cleaned text.\\n\\n{input}\",\n      \"order\": 0\n    },\n    {\n      \"type\": \"summarize\",\n      \"promptTemplate\": \"Summarize in 2-3 sentences.\\n\\n{input}\",\n      \"order\": 1\n    }\n  ]\n}"
+								},
+								"url": "{{base_url}}/api/workflows"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "vary",
+									"value": "RSC, Next-Router-State-Tree, Next-Router-Prefetch"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Feb 2026 07:06:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"cmlj48ab4000kohgdj7i65z2m\",\n    \"name\": \"My Workflow\",\n    \"createdAt\": \"2026-02-12T07:06:41.585Z\",\n    \"steps\": [\n        {\n            \"id\": \"cmlj48ab4000lohgdc73xz0zp\",\n            \"workflowId\": \"cmlj48ab4000kohgdj7i65z2m\",\n            \"type\": \"clean\",\n            \"promptTemplate\": \"Clean and normalize this text. Return only the cleaned text.\\n\\n{input}\",\n            \"order\": 0,\n            \"createdAt\": \"2026-02-12T07:06:41.585Z\"\n        },\n        {\n            \"id\": \"cmlj48ab4000mohgduzp14pcn\",\n            \"workflowId\": \"cmlj48ab4000kohgdj7i65z2m\",\n            \"type\": \"summarize\",\n            \"promptTemplate\": \"Summarize in 2-3 sentences.\\n\\n{input}\",\n            \"order\": 1,\n            \"createdAt\": \"2026-02-12T07:06:41.585Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Workflow",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/workflows/{{workflow_id}}",
+						"description": "Get a single workflow by ID. Set workflow_id or use from Create Workflow."
+					},
+					"response": [
+						{
+							"name": "Get Workflow",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{base_url}}/api/workflows/{{workflow_id}}"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "vary",
+									"value": "RSC, Next-Router-State-Tree, Next-Router-Prefetch"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Feb 2026 07:06:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"cmlj48ab4000kohgdj7i65z2m\",\n    \"name\": \"My Workflow\",\n    \"createdAt\": \"2026-02-12T07:06:41.585Z\",\n    \"steps\": [\n        {\n            \"id\": \"cmlj48ab4000lohgdc73xz0zp\",\n            \"workflowId\": \"cmlj48ab4000kohgdj7i65z2m\",\n            \"type\": \"clean\",\n            \"promptTemplate\": \"Clean and normalize this text. Return only the cleaned text.\\n\\n{input}\",\n            \"order\": 0,\n            \"createdAt\": \"2026-02-12T07:06:41.585Z\"\n        },\n        {\n            \"id\": \"cmlj48ab4000mohgduzp14pcn\",\n            \"workflowId\": \"cmlj48ab4000kohgdj7i65z2m\",\n            \"type\": \"summarize\",\n            \"promptTemplate\": \"Summarize in 2-3 sentences.\\n\\n{input}\",\n            \"order\": 1,\n            \"createdAt\": \"2026-02-12T07:06:41.585Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Workflow",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"My Updated Workflow\",\n  \"steps\": [\n    {\n      \"type\": \"clean\",\n      \"promptTemplate\": \"Clean this text.\\n\\n{input}\",\n      \"order\": 0\n    },\n    {\n      \"type\": \"summarize\",\n      \"promptTemplate\": \"Summarize.\\n\\n{input}\",\n      \"order\": 1\n    }\n  ]\n}"
+						},
+						"url": "{{base_url}}/api/workflows/{{workflow_id}}",
+						"description": "Update an existing workflow. Replace workflow_id."
+					},
+					"response": [
+						{
+							"name": "Update Workflow",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"My Updated Workflow\",\n  \"steps\": [\n    {\n      \"type\": \"clean\",\n      \"promptTemplate\": \"Clean this text.\\n\\n{input}\",\n      \"order\": 0\n    },\n    {\n      \"type\": \"summarize\",\n      \"promptTemplate\": \"Summarize.\\n\\n{input}\",\n      \"order\": 1\n    }\n  ]\n}"
+								},
+								"url": "{{base_url}}/api/workflows/{{workflow_id}}"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "vary",
+									"value": "RSC, Next-Router-State-Tree, Next-Router-Prefetch"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Feb 2026 07:06:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"cmlj48ab4000kohgdj7i65z2m\",\n    \"name\": \"My Updated Workflow\",\n    \"createdAt\": \"2026-02-12T07:06:41.585Z\",\n    \"steps\": [\n        {\n            \"id\": \"cmlj48mrp000nohgdyjanuv5r\",\n            \"workflowId\": \"cmlj48ab4000kohgdj7i65z2m\",\n            \"type\": \"clean\",\n            \"promptTemplate\": \"Clean this text.\\n\\n{input}\",\n            \"order\": 0,\n            \"createdAt\": \"2026-02-12T07:06:57.734Z\"\n        },\n        {\n            \"id\": \"cmlj48mrp000oohgdwpp8601o\",\n            \"workflowId\": \"cmlj48ab4000kohgdj7i65z2m\",\n            \"type\": \"summarize\",\n            \"promptTemplate\": \"Summarize.\\n\\n{input}\",\n            \"order\": 1,\n            \"createdAt\": \"2026-02-12T07:06:57.734Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Workflow",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/api/workflows/{{workflow_id}}",
+						"description": "Delete a workflow. Replace workflow_id."
+					},
+					"response": [
+						{
+							"name": "Delete Workflow",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{base_url}}/api/workflows/{{workflow_id}}"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "vary",
+									"value": "RSC, Next-Router-State-Tree, Next-Router-Prefetch"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Feb 2026 07:08:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Runs",
+			"item": [
+				{
+					"name": "List Runs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/runs",
+						"description": "Get last 5 runs."
+					},
+					"response": [
+						{
+							"name": "List Runs",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{base_url}}/api/runs"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "vary",
+									"value": "RSC, Next-Router-State-Tree, Next-Router-Prefetch"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Feb 2026 07:08:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"cmlj31e47000fohgdc220d7d9\",\n        \"workflowId\": \"cmlj2v5fo0005ohgd4nu6dwag\",\n        \"workflowName\": \"Intelligent Text Analysis Pipeline\",\n        \"inputText\": \"Hi team, during yesterday’s testing we noticed that the payment gateway fails for UPI transactions and sometimes double charges users. Customer support received 15 complaints. We need to fix the retry logic, add better error handling, and release a hotfix by tomorrow. Also plan a monitoring dashboard to track failed payments going forward.\",\n        \"status\": \"success\",\n        \"createdAt\": \"2026-02-12T06:33:20.311Z\",\n        \"outputs\": [\n            {\n                \"id\": \"cmlj31e47000gohgdu49n5bxe\",\n                \"runId\": \"cmlj31e47000fohgdc220d7d9\",\n                \"stepOrder\": 0,\n                \"stepType\": \"clean\",\n                \"output\": \"Hi team, during yesterday’s testing, we noticed that the payment gateway fails for UPI transactions and sometimes double charges users. Customer support received 15 complaints. We need to fix the retry logic, improve error handling, and release a hotfix by tomorrow. Additionally, we should plan a monitoring dashboard to track failed payments going forward.\",\n                \"createdAt\": \"2026-02-12T06:33:20.311Z\"\n            },\n            {\n                \"id\": \"cmlj31e47000hohgdjhjw5yiv\",\n                \"runId\": \"cmlj31e47000fohgdc220d7d9\",\n                \"stepOrder\": 1,\n                \"stepType\": \"summarize\",\n                \"output\": \"- Payment gateway fails for UPI transactions and double charges users.\\n- Customer support received 15 complaints.\\n- Fix retry logic and improve error handling.\\n- Release a hotfix by tomorrow.\\n- Plan a monitoring dashboard for tracking failed payments.\",\n                \"createdAt\": \"2026-02-12T06:33:20.311Z\"\n            },\n            {\n                \"id\": \"cmlj31e47000iohgd3f113loh\",\n                \"runId\": \"cmlj31e47000fohgdc220d7d9\",\n                \"stepOrder\": 2,\n                \"stepType\": \"extract\",\n                \"output\": \"{\\n  \\\"main_topics\\\": [\\n    \\\"Payment gateway issues\\\",\\n    \\\"Customer support complaints\\\",\\n    \\\"Technical improvements\\\"\\n  ],\\n  \\\"important_entities\\\": [\\n    \\\"UPI transactions\\\",\\n    \\\"Customer support\\\"\\n  ],\\n  \\\"action_items\\\": [\\n    \\\"Fix retry logic\\\",\\n    \\\"Improve error handling\\\",\\n    \\\"Release a hotfix by tomorrow\\\",\\n    \\\"Plan a monitoring dashboard for tracking failed payments\\\"\\n  ],\\n  \\\"risks_or_issues\\\": [\\n    \\\"Payment gateway failure\\\",\\n    \\\"Double charges to users\\\",\\n    \\\"Customer complaints\\\"\\n  ]\\n}\",\n                \"createdAt\": \"2026-02-12T06:33:20.311Z\"\n            },\n            {\n                \"id\": \"cmlj31e47000johgdziye67rx\",\n                \"runId\": \"cmlj31e47000fohgdc220d7d9\",\n                \"stepOrder\": 3,\n                \"stepType\": \"tag\",\n                \"output\": \"bug, customer_issue, feature, planning\",\n                \"createdAt\": \"2026-02-12T06:33:20.311Z\"\n            }\n        ]\n    },\n    {\n        \"id\": \"cmlj2vnk0000aohgdsnfwzjfx\",\n        \"workflowId\": \"cmlj2v5fo0005ohgd4nu6dwag\",\n        \"workflowName\": \"Intelligent Text Analysis Pipeline\",\n        \"inputText\": \"Hey team, yesterday we discussed the login issue that many users reported. The app crashes sometimes when passwords are incorrect. We also planned to add Google OAuth and improve dashboard speed. There are still some security concerns around session handling. We need to fix the bug by Friday and schedule another meeting next week.\",\n        \"status\": \"success\",\n        \"createdAt\": \"2026-02-12T06:28:52.609Z\",\n        \"outputs\": [\n            {\n                \"id\": \"cmlj2vnk0000bohgd2qecjcaq\",\n                \"runId\": \"cmlj2vnk0000aohgdsnfwzjfx\",\n                \"stepOrder\": 0,\n                \"stepType\": \"clean\",\n                \"output\": \"Yesterday, we discussed the login issue reported by many users. The app crashes when passwords are incorrect. We also planned to add Google OAuth and improve dashboard speed. There are security concerns regarding session handling. We need to fix the bug by Friday and schedule another meeting next week.\",\n                \"createdAt\": \"2026-02-12T06:28:52.609Z\"\n            },\n            {\n                \"id\": \"cmlj2vnk0000cohgdnbe2yvyr\",\n                \"runId\": \"cmlj2vnk0000aohgdsnfwzjfx\",\n                \"stepOrder\": 1,\n                \"stepType\": \"summarize\",\n                \"output\": \"- Users reported a login issue causing app crashes with incorrect passwords.\\n- Plans to add Google OAuth for login.\\n- Aim to improve dashboard speed.\\n- Security concerns identified regarding session handling.\\n- Bug fix deadline set for Friday.\\n- Another meeting to be scheduled next week.\",\n                \"createdAt\": \"2026-02-12T06:28:52.609Z\"\n            },\n            {\n                \"id\": \"cmlj2vnk0000dohgdy4rosnw1\",\n                \"runId\": \"cmlj2vnk0000aohgdsnfwzjfx\",\n                \"stepOrder\": 2,\n                \"stepType\": \"extract\",\n                \"output\": \"{\\n  \\\"main_topics\\\": [\\n    \\\"login issue\\\",\\n    \\\"Google OAuth integration\\\",\\n    \\\"dashboard speed improvement\\\",\\n    \\\"session handling security concerns\\\"\\n  ],\\n  \\\"important_entities\\\": [\\n    \\\"users\\\",\\n    \\\"Google OAuth\\\"\\n  ],\\n  \\\"action_items\\\": [\\n    \\\"add Google OAuth for login\\\",\\n    \\\"improve dashboard speed\\\",\\n    \\\"fix bugs by Friday\\\",\\n    \\\"schedule another meeting next week\\\"\\n  ],\\n  \\\"risks_or_issues\\\": [\\n    \\\"app crashes with incorrect passwords\\\",\\n    \\\"security concerns regarding session handling\\\"\\n  ]\\n}\",\n                \"createdAt\": \"2026-02-12T06:28:52.609Z\"\n            },\n            {\n                \"id\": \"cmlj2vnk0000eohgdrz98hzms\",\n                \"runId\": \"cmlj2vnk0000aohgdsnfwzjfx\",\n                \"stepOrder\": 3,\n                \"stepType\": \"tag\",\n                \"output\": \"bug, feature, meeting, customer_issue, planning\",\n                \"createdAt\": \"2026-02-12T06:28:52.609Z\"\n            }\n        ]\n    },\n    {\n        \"id\": \"cmlj2kecv0000ohgd7wtzhlce\",\n        \"workflowId\": \"cmlj24uda0000pta2qefgus80\",\n        \"workflowName\": \"Workflow 2.0\",\n        \"inputText\": \"Ì̷̧͍͉͕̇̋͒̓͑̋ ̷̢̨̼̞͚̻̙̗̩̼̍̔̔̃̈́̊̽̑͝͝͠h̶̡̰͎̮̹͎̫͍̜̫͚̮̀͊͜a̴̳̯̱̤̙̥͙̽̐̇v̶̧͎̼̺͍͓̝̳͖͔̱̬͚̽̍͜ͅë̴̱́̍̂̋̇̈́̑̉̿̑̊ ̶̖̭͙͈̭̐̄̎̿͘t̴̲͓̤̘̍̓͋̇̆̾̓̓ơ̷̧̢̨̦͕͎̟̞̪͙͙̞̰̝͑̎̋̿̓̓ͅ ̸̙͎͕̝͍̫̳̰̲̜̭͒d̷̟̈́̃́̾̄͋͆̓̌̓̃́o̵̡̨̳̼͚̼̦̍̀̿̔͒̕ ̵̢̳͖͍̮̞̠̙̪̘͚̌́̿͘ṭ̴̤͙̬̞͂ḩ̵̺̫͎͇̜̦̩̙͖͈̱͑̅͗̈͗̽̓̋̒̽͜͝i̸̧̧̮̜͍̩̮͈̩̹͋͐͒́̂̊̅̔s̵͍͝ ̵̗̙͇̭̳͍̺͉̝́͂̈́͌̑a̵̭̦̱͇͔͌̋͌̉̈́̒͊̀̓ş̶̛̦̤͙͕̖̺̞̖̦̓̂͗̃͛̕̚͜ͅs̵̨̧̟̓̒̀́̄͗̂̈́̾̀̒̓̚͜ȅ̵̡̡̜̣̪̖̂̊̀͜s̷̡̳͈̺̠͍̗̗͈̞̗̰̤͔̑̑̑̇̾̀̆͘͝ş̴̪̱̖̲̣̺̟̣̲̥͍̔͌̌́̍̊͂̌̑͋͂͋̅̕͝m̵̛̪̖̳͙̭̺̅́̋̆̉́̀͘͝ȩ̷̦̝̟̰͑̓̅̋̎͂̔͗̕͜ͅņ̴̧̫͈̤̠̲̃͒́̈̽̕͠ţ̷̢̛̦̫̼̖͔̹̹͕̍͑̐̕ ̶̥̣̙̤̪́̈̉̔į̶̥͓͛̂̏͌͒̓͑̂͑͑̈͒̌n̶̡̧̛̞͔̮̖̙͎͕͎̑͛̊̌̽̏́̓̂͐̀̈́ ̷̧͎̻̹̻̹͙͖̒̾̿͆ẗ̸̡̡͖̺̤͖̼͔͙́̐̊͐̍͛͑͘̕͠h̶͈̟͕̞̏̃̃͑̅̃̔ḛ̷͖̞̗̜̰̬̞̿͒̈́͂͆̋͂͌̀̇͌̚͝͝ͅ ̸͈̮̹̺͔̾̇͗̃͐̂͐̍̇̆̐͆̕͝h̶̡͇͎̳̞͙̗̩̲͖̫̍̋̉̓͜͝ͅĭ̵̧̛͈͎̫̫̥̹̹̎̀͜g̶͓̲̎̈́̽͗h̶͎̦̠̖̋͒͐̀̽͆̿̈́̚͝ę̸͖̭̞̺̆̿̔̀͌ͅş̶̻̹̲̦͇̩̮̄̕͜͜͠͝ͅt̷̩̤͈̻̤̞̗̣͍́̄̈́͒̃̉̊̓̿͋́͋̚ ̸̧̳̤̯͚̪͖̺̠͉̫́̆͆̇̏͗̑̂̾̿̈̏̚p̵̡̺͉̮͔̟͙̠̟͐̈́͂͆ͅơ̷̛̝̝̠͙͚̺̐̉̏̓̐̂̈́̅̌͘s̴̠̑̇͘s̶̥̹̣̫͕̃̀̈́̽̑į̶̡͚̰̪̳͖͔͚͓͔͚̓̚͜͜b̸̨̛͚͔͓̰̳͚̀̈́͌́͑͌̍͑͗͘͜l̷̛͎̦̫̪̖̜͒̈́̾̊͊̔̀͝ͅȇ̷̱͗̍̈́̐͌̇̒̕ ̴̹̑̏̐̇̕͝b̸̧͙͇̥͕̪̣̖̭̥̪͉̋̿̀̇̃̃̏̑̔͌͝ͅo̵̡͙͚̙̠̰̹̝̦̰̥͖̘̹̔̑͑͂͠n̴̨̢̜͓̹̗̅͑̃ŭ̴͉̦͇̫̹̦̩̟͙̇̓̊͊͌̇̇͛͒̀̍̚͠s̸͖̮̬̭̻̹̯̦̟̻͖̀ͅ ̵̟̠͍̼͈̾͑͊͋̆̏̌m̸̢̰͙̲̘̟̭̫̩̭͕̹̩̽̈͒̂̊̈́͂̿̍͒̓̚͝͝ͅa̷̢̛̩̳̠̲͈̤̓ͅr̵̩̔͗̍̂̃̾̃̃̉̓k̶̞̬̗͙̱̠̫̩̚͜ś̶̡̰͈͔̘̋͌̂͑̊̔̇̈́͂̏͆̽͘͜͝ ̸̨̨̣̹͇͓͕̬̻͖́͛̇̆͒̈̐̏̈́̎͆̓͘̕ȧ̷̛̖͙̘̻̰̘͉̱̳͍̖͖̏̈̉̒̉̃̊̚͠ń̷͇͈̠̮̜̪̻̯͙̗̓̌̎͛̂̑̄̃̊͌͜ͅd̸̨̘̪̿̒͝ ̸̛̲̜̙̥̙͈̃͆͒͑̅͛̈́́̿̕b̶̯̪̥̭̱͇̠̀̋è̸̮̭̝̣͒́̂͌̍̽̓̕͘͝ş̷̠͇̞̰̰̣̣͚̖̤̼̳̝͂̾͛͂̈́͗̏̏̅̄͗́̑t̸͍̳̙̤̺̫̪͉͙̖̥̲̜̙͆̈́̍̐̄͋̑̚͠ͅ ̵͙̟̣́̍̃͊͝p̶̢̡̢͚̘̫͙̱̼̳͔̺͑̐͒͆̂̽́̿̂͘͘͠͝ͅơ̵̺̥̥͓̰͚͖̝͌̌̚͘ͅs̷̙̦̻͔̖͌̽͑̔͆́́͗͜s̴̨̟̯̭̭̭̝̱͈͈͚͔̎̆́͋̎̋̇̏͊̉͆͘į̵̦̭̬̦̰̻͍̫̺̊͜b̸̛̝̲̦̪̙̞͚̠͘l̶͉͊̃̓̉̊̆̓͌̋̿̃̔̏̓͠ě̶̡̛͎͔͕̬̖͊̈́͆͝ ̶̞͇̹͍̼̠̞̤̭͚̳̄̊̈́̍́̽̈́͠ͅw̴̡̧̘͓̼̝̘̼̫͉̞͕̝̥͌̿̒̆̅͂͜a̴̫̩̪͎̱̻͉̪͘͘͠͝ȳ̶̡̡̦̝̜̭̤͓̩̱̂͠s̴̛̤͓̈̇̑̂̅ ̷̦͚̹̳̙̑̊̐̒̍͋̇̄̓̍̊á̷̹̙̘̞̎̍͑͋̽̊̂͛͊̚͝ṋ̶̨͎̘̟̙͖͍͓̬̥́̅͑̈́͋͐̊d̴͇̭̱̳͚̜̄͝ͅ ̶̛͕̖̘̝͇͇̙̞̤̠͐͋̉̀̌̾͋̀͗̚̕ḅ̶̨͕̤̖̹̜͎̓̾̔̌́͝ȩ̵̬̪̟̳̱̝̂̌̾͂̔̃̅̔͗͘͝s̵͉̖̲̺̖̈́͝͝ţ̵̠͉͈̣̳̰̞̦̦͉̔̉͋͐̾͛͜ͅͅe̷̬̤̟̫̘̗̽̎͒̓͊̍̀̂͒̓̓̚͠͝ś̵̪͌͋́́́̎̈́̊͒̔͛̚͝͝t̸̨̨̙̬͉̟͙̬̯͈̦̞̮̊̏̈́̄̈́̊̄͐̀̏̅̈̈͘͘ ̵̡̪̦̤̭̙̾̓̀ȁ̴̯͌̚m̷̗̱̪̹͉̻̼̌̈́̐ò̸̤̰̅͛̃n̶̦͓̺̜̯̈́́̀̍g̴̦̲͔̱̯͉͉̞̘̥̹̈́̀̌̔̄̊̽ͅ ̵̛͚̘̎̅̍̐̌̀͗͋̀̋̓́͂͝ǎ̵̢̳̼̭͖̝̱̺̱̼̝̘͗͆̇̒̊̓̀̀͋͜͝l̴̪̭̝͚̞̀̿ļ̴̧̛̻̦͉̗̖̩͍̓̀̅̄̀͜͝ ̶̟̬̰̫͓̖͓̫̠͙̭͊́̈́̆͂̔̒͆̂̐́͐̕͠ͅt̶̤̜̟̟̣̒h̸̨̛̛̖̯̲̖̗̞̳͊͛̃͛̌̾̿̿̉͛̃̕e̸̱̰͊̉͌͐́̌̀̔̋̐̿̽ ̸̢̳̝͇̱̦̝͓̬͙͂̈́̀͒͛̅͑̅̊̓̚̕͠͝ͅͅs̸͈͓̦̳̈́͐̃̓̄͋̕̕͠ư̴̢̢̫̹͙̳̪̤͙͐͌̀͠b̷̜̈́͝m̴̧̡̖̟̲͓̊͑̐̓̈͋̈͆͂̔̍͜͝i̷̹͇̼͖̺̇̎̑̀̉͂̇̚͠s̷̗̩̟͕̤͔̰̈̌̆͑̈́͜͠͠s̷̨̢̤͉̦͕̟̪͉͚̞̻̬̆̂̎̉̏̏̀́̈́̓̉͑̕͜͝ĩ̸͙̦̜̮͗̓͒́̍̍͘o̵̢̡̻͖͔̯̱͇͖̠͌͗̈́̉̅̍̇ͅn̷̥͉̙̬̈́̈́͆͑̀͂̇͗̂̃͑̈́̍̉ ̷̰̫̫͓̯̳͆̐̊̔̾͆̍͌͠,̷̡̜͙̬͖̟̟̤̩͍͉̹͕͒̾́̈́͐̃̐͂̕͜ ̴̬̙̦̭͈̯̣̯̘̯̜̀̾͐͆̀̔̂͂̑̀͐̿͆͠͝w̴̨̛̻̗̙̏̿̍̊̽̈̂̉͒̒͝͠r̶̡͇̱͕͍͇̬̫͗i̶̧̺̳͚̰̰̖̯͑͆̂̆̃t̵̨̢̞͖̼͇̻̙̪̺̝̩̣̣̝̔̉̉̒͘ȩ̴̢͖̠̣̲͓̰̬̳̝̭̜͉̒̍͂͛̏̆̋̕̕͝͝͠ͅ ̴̠̈́̅̈́̈́͑̿͋̄̕a̵̛̺̙̹͔̍͛̏͛́̐̚̚͜͠ ̴̧̞͚̰̙̻͕͈̝̪̙̏̂͒́͆̀͆̕̚ǧ̶̨̧̹͔̝͚͙̖̖̼͕͔͍̝̬̈́̾̈́́̉̚o̸̳̰̙̻̪̜̠̫̪̞̿̐̀̔̏̍͒́̌͐̊̌̄̎͜͝ͅõ̴̻̞͗̈́͗̓̉̅͂̽̾́̕͠d̵͕̘̍͒͐͗̾̇̏̏͝͝ ̶̹̘̤̹̭͍̮͔̉̍͗͊̎̄̑̄̈́c̸̢̘̤̖̙̰͈̥͔͙̖̜͔͓̐̄͐́̐̂̈́̈́́̆̃̕͘̚u̵̧̮͖̠̞̭̹͖̩͈̮͉̹̻̺̔̋̆̌́̈́͑̒̈́̄͐̏̑͝r̸̢̭̠̀̌̕s̶̛̫̖̟͖̪̲̗̫̀͛̆̓́͆̿͋̚͝o̸̻͝r̶̨̞͍͈̻͇̝̲̫̤̭̟͖̔́́̈́̒̈́̂͐͗̓͐͊̕͜ ̷̢̛̱̜̮͉͖̟͛̾̈́̅͊̇͂͑̀ͅp̴̨̠͓̝͚̦͎̞̫̮͚̘͚̈͂͆̓̒̉̈̓r̷̛͍̘̝̜̺̎̈́̇̍̔͌̏̂̑͝ò̷͉͓̱͍̩͔͇̣͉̣͇̹̠̀͐̔̌̎̔̆̇̆͊̔̀̚͜ḿ̶͔̗̞͓͖͔͍͚̝̩͉̰̹͆͌͊̂̆͠ͅp̶̛̫̳̯̞̻̠̝̖̼̯̱͈̩͕͛́̔̈́͆̅t̶̡̨̢̫͉̥͚͈̘̙͓̱̣̪̎͋̈̄̊͆̓͊̎̏͝͝ ̷̨̧̡̧̤͍̠̟̜̣̤̲͓̻͖̾̔̒̂̽̎̔̾̓͗̽͆̎͝ţ̷̖̗̞̘̺͇͕̦̀̓̓̆̽̇͗̈́̅͋̈õ̶̢̥̬̦͇͖̝͙̉̐̾̊̈́ ̵̢̡̢̛̟̮̦̮̓̂̄͛͗͑̓̏̔̔̎̓͘͘ͅç̴̼͔͎̦͕͎̬̎̇̋̃͐̉̾͆̾̈̈́̐̀͘͘ǫ̷̡̘͙̱͇̥̘͓̣̞̩̹̼̂̐̂̓͘m̷̨͍̭̥̦͉̫̗͓̙̿̉̔̇̐̊̕͜͜͠p̷̘̺̤̞̗̳̜̌͑̇̓̇̑̍̀̋͘̕͝ͅͅl̸̹̤̬̰͍͎̹̩̘͈̍͋̔͛̎̈́͂̊͒͆̇͆̕̚͠ͅẽ̸̩̪̯̱̔̕̚͝t̸̡͈͔̘̠͎̃̈́̔̍̊̓ȇ̸̙̱͓̤̙̞͔̖̮̬͚͈ ̷͈̣̰͙̜̖̥͓̣̬̜̌̈̌̄͌̒̓͠ṫ̵̢̛͙̝̳̳̯̀͂͂̌̅̇͐̈́̆͌̽͜͠͝h̴͙̞̖̤̚ǐ̸͇̣͇͕͙̜̍̎̀̃͆͂̕ş̴̡̰͖̻͉̞̣͓͚͍̲̹͆̅̔̔̈́̐ ̴̗̬̻̠̼̾̾̑͐̅͋́͊͂̕͠a̶̧̛͙̞̥͎̻͔̺͎̗̩̪̓͊̄͗̅̄̎͑̕͜s̴͉̋̉̋͐̈̏̈́̑̓͊̀̈́͝͠ś̸̨̫̘͔͖͓̭̥̠̝͗͌̏̎̈́͋͂̿̃̎̕ï̴̧̛̙̮̝̞̫͚͙̱̦̉̽͐̒̅͛̔̆̒̉͠ǵ̵̣͋͒̿̈́̋̉̋̃̿͒̕͝n̷̯͚͎͖̫̲̾̀͗͆̂́̽́̀̇m̶̖̖̬̀͂͗̔́̾́̅̊̍́é̸̡̘͇̖͓̯̞̪̗͉͎̄͂͋͆̽̿̊̿̔̕͝͝͝ņ̵̘̪̠̰̰̞̫̀́̀͌́̈́t̶̢̢̢͔̲͎̬͈̣̅͌͜͝ ̵̲̗͕̺̏͗̀̅̋̂͐̐,̷̠͍̠̘̻͂̽̀̌̔͋́̃̈́͑̓͘͝ ̸͔̟͉̮̬͓̹͈͚̰̜̞̞͖̀̽͒͂͑͜w̵̡̛͍̹̯̜͇̼̟̹̔͌̌̀̽̑̇͠i̶̛͖̬̦̲͚̦͙̝̺̘̙͔͐́͆̇̋̈́̂̂̽̋̃̚͝t̴̗͎̥̜̦́̋̔͂̌͌͝ĥ̵̺̯̫͔͚̍̀̿̅̔̀͊͘̕͠͝͝ ̸̡̯̤̪̩̮͙̱̻͔̲̂͑̾̓̽̏̉̒̃̒͘͝n̶̨̢̙̻͚̩̺̝͎̪̘̳̩̑͒̈́͛̆͐̊̂̆̋̽͒̋̑͊͜ơ̵̹̟͇̮̞̼͕͌̓̽̈́̇̍͗͋́́͠͝ ̵̘̼̦̗͖̯͉̬̰͎̤̅́͆͘ͅc̴̨̧̯̙̯̱̩͕̓͊̏̏̚͠ǫ̵̢̨͇͈̳͇̀͐͌͘m̴̡̛̤̾͠m̴̦̟͖͕̳͍̭͛̆͆͌̃̉̃̎͛̀̚̕͝ę̸̨͎̟̝̘̘͔̇̄̊̍̌n̴̢̜̙͍̮͈̞͉͒̾̀̿͘͠t̴̨̛̰͔̳͌͑͒͑͛͐̄̑͘s̷̡̨̰̩̙̘͙̝̮̱̠͎̀̃̋̉̀́͆̀̓̅̿ ̴̨̱̙͈̺̘͎̜͎̦̦̳̼͕̄̏̔̔̔̃̍̉͘͠ǎ̸̢͎̙͔͉̜͔̱̉̇̾ñ̷̢̛̦̝͚̟̣̙̀̽̊̋̄̿̍͗̚d̴̨̪̹̜̐̃̎̊͛̕ ̴̰̮̤̠̘̹͎̙̮̭͒̒͜b̵̠͚̘͍̪̖̿̓̅͆͂͗͝ͅͅȩ̶̠͕̬̘̰̲̙̖̺̺̼͈̹̣̋s̶̛̙̺͑͛ṫ̵̨̨̛̛̪̟͍̝̦̞͓̦̖̓̔͐̕͝ ̷̡̤̭̑̂̆͗́̎̚͜͝ȧ̵͚͚̱̯̦̭̗͉͈͇̲̏͗͗͘͜ͅr̴̹͒̾̈́̽̐́̅͊̊̑̃̒̇͊̕c̶̫̈͋̽̎h̵̨̬͉̩̩̗̝̯̏̐͌́͂̎̽̓ḭ̸̧̧͓͎͍̗̜̥̬̫͍͎͚̘̈́̌̈̑̈́̓͌͘͠t̶̳͇̖̟̝̀̈́̓́̆͌͑̈́̇̊̌̽̚é̶͍̙̜̝̗͓̳͕͖͖͕̫͍̜̞̇̐͑̾̽̔̆̕̚̕̚͝c̶̢̫͓̺̦̈́͂̾̇͐͊̍̕t̶̨͔̹͖̣̠̱͈̝͖̓̈́̋͜ͅǘ̷̡̧͍̻͔̱͇̼̭͑̆͂̀̂̀͜͜ͅr̸̘̖̘̣͙̼͇̓͒̽̐̆̃̇̾͝é̸̡̢̧̩̦͔̹̘͍̋̀̇̍̂̐̈́ ̶̦̂́̎̆̓̍̏͛̓͑͆͊̕͝ą̵̖̀͂̈́́͛͗͊̍̈́̒͘ņ̶̖̲̼̘̺̦͉̞̈͑͂̍̉̍̎̽̕͜͝͠d̷͇̩̳̣͓̋̍̊́͘ ̸̗̘̹̝̖̣̖̖̫̓̄͆̇̾̉̄̀͘͘ͅs̶̛̰͈̲̳̲͓͍̠͚͋̀͊̿̓̾͛̕͜͝ͅo̶̧͈͚̗͚̳̲̓̍́͒̅̾̕ḻ̸̡̧͙͇͓̙̪͔̙̣̬̥͈̈̏̽̍̓̃̐̃̈́̕͠ỉ̵̖̙̹̟͚̀̔̃͑̋̈́̈̍̅d̵̢̯̩̈ͅ ̵̡̢̬͇͇̰͙̣̇̓͛̀͐̒́̚̕͝p̸̧̻̤͓̺̖̼̘̌̐̾̒̔͒͑̽̎̂̈́͋͘͠r̸̗͙̣̦͕̒͋͂̾̅̈̃̈́̚ͅi̷̡̧̺̻͔̜͊͛̎͂̓͆̓̀́͐̇͆̀̚n̴̡̬̝̘͕̼̣̭̰̹͉̲̆͑͌̈́̽̀͌͘c̸̛̳͊̄̅̊̂̓͒i̵̛̱̐̐͑̽̇̿͊̅̒͑̄̕͜p̶̡̳̝͚̗̬̝̟͙̖̫͇͆̏̈́̃̈͜͜ͅl̴̨̗̤̟͇̱͎͎͉͍͇̖̯̥̠̑͒̔̇̉̀̓͒̈͘̕͝é̶̗̮̩͈͎̟̘̱͉̩̪̐̊̂̑̃͂̈́̀̚s̶̢̢̝͍̫̥͚͎̣̻̫͙͙̻̏ ̸͉̩͙͑̊̿̒̀̚ā̷͚͕̚n̴̞͍̭̺̹͕̱̫͎͙̼͚̣̩̭͛́̈́͊͒̆̅̄̽̔̚͠͠d̵̫̦̣͎̃͂̐͆̐͆ ̷̡̗̪͕̺͈̫̥̞̼̤̻̥̬̗̈́͒̒̊͂̚̚h̸̨̜̙̱͚͖̠̭̭̥̞͇̟̗͓̑́i̵̧̦̥̰̱̻̼̺̻͆̍̄͂g̵̨̠̤͎͖̥̺̿̄̾̄͂͑͐͂h̶̛̙͙̋͛̓̉͊ȇ̶̡̹̻͉̳̻͓̭͔̳̘̟͉̃̅͒̍͒̿̇̍͗̌̅͂̌̿ͅš̵̛̻̳̫̳̮͉̬͔͉̺̺̉̿̉̈́̊̊̚̚͝ţ̴̢̲͕͙̘͎͚̖͙͎̜͇̅̓̊͆̽̃́̽̓̏̐̋̎͊͑͜ ̷̹̲͍̬̼̙̒̂̑̈́̈́̈́̏̚͠͝ͅă̶̧͔̘̣̦̫̫͍̞͛͒̅̔̾̈̔͊͝͝p̸̢̘͓̖͚̣̪̲͓̪͙̩͕̜͆͛̓̌̈́̃̓̂͘͜p̷̡͍̻̭͎̭̩̮͖̲̩̌́̓͘͘r̸̛̛̫̱̬̲̬̹̖̗̥̒̈́̔̍̎̑̃͂́̀̈̑͜͜͝o̵̢͍̖͔̣̞̥̺̼̞̹͉͒̋͋̈̿͂̑̅̍̾̌̐̏͜͜ă̶̗̼͌͆̈́̐͝c̴̩̔́̊̏̀̿̏̓͘ͅh̸̨̨͕̬͍̪͓͖͑̽̌͂̏̆̈͗͆̉̑̚̕͝͝.̴̢̢̞͈̫̻̲̎̀ͅ\",\n        \"status\": \"success\",\n        \"createdAt\": \"2026-02-12T06:20:07.471Z\",\n        \"outputs\": [\n            {\n                \"id\": \"cmlj2kecv0001ohgdmnmii9dr\",\n                \"runId\": \"cmlj2kecv0000ohgd7wtzhlce\",\n                \"stepOrder\": 0,\n                \"stepType\": \"clean\",\n                \"output\": \"I have to do this assessment in the highest possible standards among all the best practices and best implementations.\",\n                \"createdAt\": \"2026-02-12T06:20:07.471Z\"\n            },\n            {\n                \"id\": \"cmlj2kecv0002ohgd5kea1lw5\",\n                \"runId\": \"cmlj2kecv0000ohgd7wtzhlce\",\n                \"stepOrder\": 1,\n                \"stepType\": \"summarize\",\n                \"output\": \"You are required to complete the assessment while adhering to the highest standards and implementing best practices.\",\n                \"createdAt\": \"2026-02-12T06:20:07.471Z\"\n            },\n            {\n                \"id\": \"cmlj2kecv0003ohgdsbrfu8ho\",\n                \"runId\": \"cmlj2kecv0000ohgd7wtzhlce\",\n                \"stepOrder\": 2,\n                \"stepType\": \"extract\",\n                \"output\": \"No specific entities (people, organizations, dates, locations) are present in the provided text.\",\n                \"createdAt\": \"2026-02-12T06:20:07.471Z\"\n            },\n            {\n                \"id\": \"cmlj2kecv0004ohgdybkwnf2i\",\n                \"runId\": \"cmlj2kecv0000ohgd7wtzhlce\",\n                \"stepOrder\": 3,\n                \"stepType\": \"tag\",\n                \"output\": \"text analysis, content categorization, data processing, natural language processing\",\n                \"createdAt\": \"2026-02-12T06:20:07.471Z\"\n            }\n        ]\n    },\n    {\n        \"id\": \"cmlj1gjpb00091j9hcycdsxyn\",\n        \"workflowId\": \"cmlj1gh0a00061j9haaw7vbuq\",\n        \"workflowName\": \"E2E\",\n        \"inputText\": \"Test input for E2E\",\n        \"status\": \"success\",\n        \"createdAt\": \"2026-02-12T05:49:08.159Z\",\n        \"outputs\": [\n            {\n                \"id\": \"cmlj1gjpb000a1j9h2quob2yl\",\n                \"runId\": \"cmlj1gjpb00091j9hcycdsxyn\",\n                \"stepOrder\": 0,\n                \"stepType\": \"clean\",\n                \"output\": \"Sure! Could you please provide more details about the specific test input or scenario you would like to use for end-to-end (E2E) testing? This could include the type of application, the expected outcomes, or any specific features you want to test.\",\n                \"createdAt\": \"2026-02-12T05:49:08.159Z\"\n            },\n            {\n                \"id\": \"cmlj1gjpb000b1j9hu71bvxzz\",\n                \"runId\": \"cmlj1gjpb00091j9hcycdsxyn\",\n                \"stepOrder\": 1,\n                \"stepType\": \"summarize\",\n                \"output\": \"Please provide specific details about the test input or scenario for end-to-end (E2E) testing, including the application type, expected outcomes, and any particular features you want to focus on.\",\n                \"createdAt\": \"2026-02-12T05:49:08.159Z\"\n            }\n        ]\n    },\n    {\n        \"id\": \"cmlj1g66f00031j9hhmfemmvf\",\n        \"workflowId\": \"cmlj1g23000001j9hmsqseya1\",\n        \"workflowName\": \"E2E Test Workflow\",\n        \"inputText\": \"This is a  messy   text  with extra spaces and typos. It needs cleaning and summarization.\",\n        \"status\": \"success\",\n        \"createdAt\": \"2026-02-12T05:48:50.632Z\",\n        \"outputs\": [\n            {\n                \"id\": \"cmlj1g66g00041j9h2rl7hjyr\",\n                \"runId\": \"cmlj1g66f00031j9hhmfemmvf\",\n                \"stepOrder\": 0,\n                \"stepType\": \"clean\",\n                \"output\": \"This is a messy text with extra spaces and typos. It needs cleaning and summarization.\",\n                \"createdAt\": \"2026-02-12T05:48:50.632Z\"\n            },\n            {\n                \"id\": \"cmlj1g66g00051j9hjsresnya\",\n                \"runId\": \"cmlj1g66f00031j9hhmfemmvf\",\n                \"stepOrder\": 1,\n                \"stepType\": \"summarize\",\n                \"output\": \"The text requires editing to remove errors and summarize its content.\",\n                \"createdAt\": \"2026-02-12T05:48:50.632Z\"\n            }\n        ]\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Run Workflow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    const json = pm.response.json();",
+									"    pm.collectionVariables.set('run_id', json.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"workflowId\": \"{{workflow_id}}\",\n  \"inputText\": \"This is sample text to process. It has some  extra   spaces and could use cleaning and summarization.\"\n}"
+						},
+						"url": "{{base_url}}/api/runs",
+						"description": "Execute a workflow. Requires workflowId and inputText. Uses LLM - ensure OPENAI_API_KEY is set. workflow_id is auto-set from Create Workflow."
+					},
+					"response": [
+						{
+							"name": "Run Workflow",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"workflowId\": \"{{workflow_id}}\",\n  \"inputText\": \"This is sample text to process. It has some  extra   spaces and could use cleaning and summarization.\"\n}"
+								},
+								"url": "{{base_url}}/api/runs"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "vary",
+									"value": "RSC, Next-Router-State-Tree, Next-Router-Prefetch"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Feb 2026 07:09:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"cmlj4bivx000pohgduy089g0u\",\n    \"workflowId\": \"cmlj2v5fo0005ohgd4nu6dwag\",\n    \"workflowName\": \"Intelligent Text Analysis Pipeline\",\n    \"inputText\": \"This is sample text to process. It has some  extra   spaces and could use cleaning and summarization.\",\n    \"status\": \"success\",\n    \"createdAt\": \"2026-02-12T07:09:12.670Z\",\n    \"outputs\": [\n        {\n            \"id\": \"cmlj4bivx000qohgdhbh72w1p\",\n            \"runId\": \"cmlj4bivx000pohgduy089g0u\",\n            \"stepOrder\": 0,\n            \"stepType\": \"clean\",\n            \"output\": \"This is sample text to process. It has some extra spaces and could use cleaning.\",\n            \"createdAt\": \"2026-02-12T07:09:12.670Z\"\n        },\n        {\n            \"id\": \"cmlj4bivx000rohgdziep0ick\",\n            \"runId\": \"cmlj4bivx000pohgduy089g0u\",\n            \"stepOrder\": 1,\n            \"stepType\": \"summarize\",\n            \"output\": \"- Sample text needs processing.  \\n- Contains extra spaces.  \\n- Requires cleaning.  \",\n            \"createdAt\": \"2026-02-12T07:09:12.670Z\"\n        },\n        {\n            \"id\": \"cmlj4bivx000sohgd0q8k7wv7\",\n            \"runId\": \"cmlj4bivx000pohgduy089g0u\",\n            \"stepOrder\": 2,\n            \"stepType\": \"extract\",\n            \"output\": \"{\\n  \\\"main_topics\\\": [\\\"text processing\\\", \\\"cleaning\\\"],\\n  \\\"important_entities\\\": [],\\n  \\\"action_items\\\": [\\\"process text\\\", \\\"clean extra spaces\\\"],\\n  \\\"risks_or_issues\\\": []\\n}\",\n            \"createdAt\": \"2026-02-12T07:09:12.670Z\"\n        },\n        {\n            \"id\": \"cmlj4bivx000tohgdndxzz1ut\",\n            \"runId\": \"cmlj4bivx000pohgduy089g0u\",\n            \"stepOrder\": 3,\n            \"stepType\": \"tag\",\n            \"output\": \"feature, planning\",\n            \"createdAt\": \"2026-02-12T07:09:12.670Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Run",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/runs/{{run_id}}",
+						"description": "Get run details including step outputs. run_id is auto-set from Run Workflow."
+					},
+					"response": [
+						{
+							"name": "Get Run",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{base_url}}/api/runs/{{run_id}}"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "vary",
+									"value": "RSC, Next-Router-State-Tree, Next-Router-Prefetch"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Feb 2026 07:09:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"cmlj4bivx000pohgduy089g0u\",\n    \"workflowId\": \"cmlj2v5fo0005ohgd4nu6dwag\",\n    \"workflowName\": \"Intelligent Text Analysis Pipeline\",\n    \"inputText\": \"This is sample text to process. It has some  extra   spaces and could use cleaning and summarization.\",\n    \"status\": \"success\",\n    \"createdAt\": \"2026-02-12T07:09:12.670Z\",\n    \"outputs\": [\n        {\n            \"id\": \"cmlj4bivx000qohgdhbh72w1p\",\n            \"runId\": \"cmlj4bivx000pohgduy089g0u\",\n            \"stepOrder\": 0,\n            \"stepType\": \"clean\",\n            \"output\": \"This is sample text to process. It has some extra spaces and could use cleaning.\",\n            \"createdAt\": \"2026-02-12T07:09:12.670Z\"\n        },\n        {\n            \"id\": \"cmlj4bivx000rohgdziep0ick\",\n            \"runId\": \"cmlj4bivx000pohgduy089g0u\",\n            \"stepOrder\": 1,\n            \"stepType\": \"summarize\",\n            \"output\": \"- Sample text needs processing.  \\n- Contains extra spaces.  \\n- Requires cleaning.  \",\n            \"createdAt\": \"2026-02-12T07:09:12.670Z\"\n        },\n        {\n            \"id\": \"cmlj4bivx000sohgd0q8k7wv7\",\n            \"runId\": \"cmlj4bivx000pohgduy089g0u\",\n            \"stepOrder\": 2,\n            \"stepType\": \"extract\",\n            \"output\": \"{\\n  \\\"main_topics\\\": [\\\"text processing\\\", \\\"cleaning\\\"],\\n  \\\"important_entities\\\": [],\\n  \\\"action_items\\\": [\\\"process text\\\", \\\"clean extra spaces\\\"],\\n  \\\"risks_or_issues\\\": []\\n}\",\n            \"createdAt\": \"2026-02-12T07:09:12.670Z\"\n        },\n        {\n            \"id\": \"cmlj4bivx000tohgdndxzz1ut\",\n            \"runId\": \"cmlj4bivx000pohgduy089g0u\",\n            \"stepOrder\": 3,\n            \"stepType\": \"tag\",\n            \"output\": \"feature, planning\",\n            \"createdAt\": \"2026-02-12T07:09:12.670Z\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3001"
+		},
+		{
+			"key": "workflow_id",
+			"value": ""
+		},
+		{
+			"key": "run_id",
+			"value": ""
+		}
+	]
+}
